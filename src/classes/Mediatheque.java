@@ -231,7 +231,7 @@ public class Mediatheque {
         Scanner sc = new Scanner(System.in);
         int i = 0;
         do 
-        {//on répète cette boucle tant que l'utilisateur n'a pas rentré un entier figurant dans la liste
+        {
             i = 0;
             System.out.println("############ AJOUT D'UN DOCUMENT ############");
             System.out.println("## Quel type de document voulez vous ajouter ? ");
@@ -269,5 +269,13 @@ public class Mediatheque {
         }  
     }
     
+    public void triParAuteur()
+    {
+        
+    }
     
+    public void triParTitre()
+    {
+        
+    }
 }
