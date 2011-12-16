@@ -279,6 +279,4 @@ public class Mediatheque {
         
     }
     
-    
-    ////////////// TEST
 }
