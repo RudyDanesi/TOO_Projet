@@ -17,7 +17,9 @@ public class Main {
         
         Mediatheque maMediatheque = new Mediatheque();
         maMediatheque.displayDocument();
-        maMediatheque.addDocument();
+        //maMediatheque.addDocument();
+        //maMediatheque.triParAuteur();
+        //maMediatheque.searchByAuthor();
         
     }
 

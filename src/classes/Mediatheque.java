@@ -22,7 +22,7 @@ public class Mediatheque {
         do 
         {//on répète cette boucle tant que l'utilisateur n'a pas rentré un entier figurant dans la liste
             i = 0;
-            System.out.println("## Quelle est la categorie du document a ajouter ? ");
+            System.out.println("## Choose the category from the added document ? ");
             System.out.println("\t 1)  RPG");
             System.out.println("\t 2)  FPS");
             System.out.println("\t 3)  Plateforme");
@@ -34,13 +34,13 @@ public class Mediatheque {
             System.out.println("\t 9)  Drame");
             System.out.println("\t 10) PopRock");
             System.out.println("\t 11) Alternative");
-            System.out.println("\t 12) Classique");
-            System.out.println("\t 13) Autre");
+            System.out.println("\t 12) Classic");
+            System.out.println("\t 13) Other");
            
               
             i = sc.nextInt();
             if (( i < 1 )&&( i > 13 ))
-                System.out.println("\t !! Veuillez entrer des caracteres valides (1 -> 13)");
+                System.out.println("\t !! Please type valid characters (1 -> 13)");
             
             switch(i)
             {
@@ -71,7 +71,7 @@ public class Mediatheque {
                 case 13:
                     return(Categorie.Autre);
                 default:
-                    System.out.println("\t !! Erreur !!");
+                    System.out.println("\t !! Error !!");
                     break;
             }  
         }while (( i < 1 )&&( i > 13 ));
@@ -81,7 +81,7 @@ public class Mediatheque {
     
     public Mediatheque()
     {
-        System.out.println("Creation mediatheque");
+        System.out.println("Library creation");
         documentList = new ArrayList(4);
         
         // 4 documents are created by default. 1 of each class.
@@ -120,7 +120,7 @@ public class Mediatheque {
         int newPEGI;
         String newSupport;
         
-        System.out.println("############  AJOUT D'UN JEU VIDEO ############");
+        System.out.println("############  ADDING A VIDEO GAME ############");
         System.out.println("## Author : ");
         newAuthor = sc2.nextLine();
         System.out.println("## Title : ");
@@ -150,7 +150,7 @@ public class Mediatheque {
         Categorie newCateg;
         int newTsize;
         
-        System.out.println("############  AJOUT D'UNE MUSIQUE ############");
+        System.out.println("############  ADDING A MUSIC ############");
         System.out.println("## Author : ");
         newAuthor = sc2.nextLine();
         System.out.println("## Title : ");
@@ -179,7 +179,7 @@ public class Mediatheque {
         Categorie newCateg;
         int newMsize;
         
-        System.out.println("############  AJOUT D'UN FILM ############");
+        System.out.println("############  ADDING A MOVIE ############");
         System.out.println("## Author : ");
         newAuthor = sc2.nextLine();
         System.out.println("## Title : ");
@@ -208,7 +208,7 @@ public class Mediatheque {
         Categorie newCateg;
         String newSupport;
         
-        System.out.println("############  AJOUT D'UN LIVRE ############");
+        System.out.println("############  ADDING A BOOK ############");
         System.out.println("## Author : ");
         newAuthor = sc2.nextLine();
         System.out.println("## Title : ");
@@ -233,19 +233,19 @@ public class Mediatheque {
         do 
         {
             i = 0;
-            System.out.println("############ AJOUT D'UN DOCUMENT ############");
-            System.out.println("## Quel type de document voulez vous ajouter ? ");
-            System.out.println("\t 1) Un film");
-            System.out.println("\t 2) Un jeu video");
-            System.out.println("\t 3) Un livre");
-            System.out.println("\t 4) Une musique");
-            System.out.println("\t 9) Revenir en arriere");
+            System.out.println("############ ADDING A DOCUMENT ############");
+            System.out.println("## What sort of document do you want to add ? ");
+            System.out.println("\t 1) A movie");
+            System.out.println("\t 2) A video game");
+            System.out.println("\t 3) A book");
+            System.out.println("\t 4) A song");
+            System.out.println("\t 9) Go back");
               
             i = sc.nextInt();
             System.out.println(i);
             
             if (( i != 1 )&&( i != 2)&&( i != 3)&&( i != 4)&&( i != 9))
-              System.out.println("\t !! Veuillez entrer des caracteres valides (1/2/3/4/9)");
+              System.out.println("\t !! Please type valid characters (1/2/3/4/9)");
         }while (( i != 1 )&&( i != 2)&&( i != 3)&&( i != 4)&&( i != 9));
             
         switch(i)
@@ -263,20 +263,100 @@ public class Mediatheque {
                 addMusic();
                 break;
             case 9:
+                System.out.println("\t End of the adding ");
                 break;
             default:
-                System.out.println("\t !! Erreur !!");
+                System.out.println("\t !! Error !!");
         }  
     }
     
     public void triParAuteur()
     {
-        
+        int min;
+        Document buffer;
+        for(int i = 1; i < documentList.size() - 1; i++)
+	{
+            min = i;
+            for(int j = i+1; j < documentList.size(); j++)
+            {
+                    if (documentList.get(j).getNomAuteur().compareTo(documentList.get(min).getNomAuteur()) < 0)
+                    {
+                         min = j;
+                    }
+            }                  
+            if(min != i)
+            {
+                // Exchange
+                buffer = documentList.get(i);
+                documentList.set(i, documentList.get(min));
+                documentList.set(min, buffer);
+            }
+        }
+        displayDocument();
     }
     
     public void triParTitre()
     {
+        int min;
+        Document buffer;
+        for(int i = 1; i < documentList.size() - 1; i++)
+	{
+            min = i;
+            for(int j = i+1; j < documentList.size(); j++)
+            {
+                    if (documentList.get(j).getTitreDoc().compareTo(documentList.get(min).getTitreDoc()) < 0)
+                    {
+                         min = j;
+                    }
+            }                  
+            if(min != i)
+            {
+                // Exchange
+                buffer = documentList.get(i);
+                documentList.set(i, documentList.get(min));
+                documentList.set(min, buffer);
+            }
+        }
+        displayDocument();
+    }
+    
+    public void searchByAuthor()
+    {
+        Scanner sc = new Scanner(System.in);
+        int i = 0;
+        int found = -1;
+        String author;
+        System.out.println("\t Type the author you want to search : ");
+        author = sc.nextLine();
         
+        while ((i < documentList.size()) && (found==-1))
+        {
+             if (documentList.get(i).getNomAuteur().compareTo(author) == 0)
+             {
+                 found = 1;
+             }
+             i++;
+        }
+        //  If the author has been founded, his mades are displayed.
+        if (found == 1)
+        {
+            System.out.println("\t Search completed: The author (" 
+                            + author
+                            + ") has been found in the GDB :"     
+                            + "\n \t Here are his mades : ");
+            
+            for(int j = 0; j < documentList.size(); j++)
+            {
+                if (documentList.get(j).getNomAuteur().compareTo(author) == 0)
+                {
+                    System.out.println(documentList.get(j).getTitreDoc() );
+                }
+            }
+        }
+        else
+        {
+            System.out.println("\t The search failed: This author("+ author +") is not registered in the GDB");
+        }
     }
     
 }
