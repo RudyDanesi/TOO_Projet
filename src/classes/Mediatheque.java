@@ -6,6 +6,9 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JFrame;
 
 /**
  *
@@ -14,78 +17,95 @@ import java.util.Scanner;
 public class Mediatheque {
 
     protected ArrayList<Document> documentList;
+    protected ArrayList<Document> searchList;
+    protected JTextArea mConsole;
+    protected JFrame frame;
     
-    protected Categorie chooseCateg()
+    protected DocumentType inputDocumentType()
     {
-        Scanner sc = new Scanner(System.in);
-        int i = 0;
-        do 
-        {//on répète cette boucle tant que l'utilisateur n'a pas rentré un entier figurant dans la liste
-            i = 0;
-            System.out.println("## Choose the category from the added document ? ");
-            System.out.println("\t 1)  RPG");
-            System.out.println("\t 2)  FPS");
-            System.out.println("\t 3)  Plateforme");
-            System.out.println("\t 4)  Action");
-            System.out.println("\t 5)  SF");
-            System.out.println("\t 6)  BD");
-            System.out.println("\t 7)  Manga");
-            System.out.println("\t 8)  Roman");
-            System.out.println("\t 9)  Drame");
-            System.out.println("\t 10) PopRock");
-            System.out.println("\t 11) Alternative");
-            System.out.println("\t 12) Classic");
-            System.out.println("\t 13) Other");
-           
-              
-            i = sc.nextInt();
-            if (( i < 1 )&&( i > 13 ))
-                System.out.println("\t !! Please type valid characters (1 -> 13)");
-            
-            switch(i)
-            {
-                case 1:
-                    return(Categorie.RPG);
-                case 2:
-                    return(Categorie.FPS);
-                case 3:
-                    return(Categorie.Plateforme);
-                case 4:
-                    return(Categorie.Action);
-                case 5:
-                    return(Categorie.SF);
-                case 6:
-                    return(Categorie.BD);
-                case 7:
-                    return(Categorie.Manga);
-                case 8:
-                    return(Categorie.Roman);
-                case 9:
-                    return(Categorie.Drame);
-                case 10:
-                    return(Categorie.PopRock);
-                case 11:
-                    return(Categorie.Alternative);
-                case 12:
-                    return(Categorie.Classique);
-                case 13:
-                    return(Categorie.Autre);
-                default:
-                    System.out.println("\t !! Error !!");
-                    break;
-            }  
-        }while (( i < 1 )&&( i > 13 ));
-        // Ce return est inutile
-        return(Categorie.Autre);
+        String messagetitle = "Adding a Document";
+        Object[] possibilities = {  
+                                    DocumentType.Movie, 
+                                    DocumentType.VideoGame, 
+                                    DocumentType.Book, 
+                                    DocumentType.Music
+                                 };
+        DocumentType s = (DocumentType)JOptionPane.showInputDialog
+                (
+                    frame,
+                    "What sort of document do you want to add ?",
+                    messagetitle,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    possibilities[0]
+                );
+        return (s);
+        
     }
     
-    public Mediatheque()
+    protected Categorie inputCateg()
     {
-        System.out.println("Library creation");
-        documentList = new ArrayList(4);
+        String messagetitle = "Choosing a Categorie";
+        Object[] possibilities = {  Categorie.Action,
+                                    Categorie.SF,
+                                    Categorie.Drame,
+                                    Categorie.Alternative,
+                                    Categorie.PopRock,
+                                    Categorie.Classique,
+                                    Categorie.Roman,
+                                    Categorie.BD,
+                                    Categorie.Manga,
+                                    Categorie.Plateforme,
+                                    Categorie.FPS,
+                                    Categorie.RPG,
+                                    Categorie.Autre
+                                 };
+        Categorie s = (Categorie)JOptionPane.showInputDialog
+                (
+                    frame,
+                    "Choose the document's category :",
+                    messagetitle,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    possibilities,
+                    possibilities[0]
+                );
+        return (s);  
+    }
         
-        // 4 documents are created by default. 1 of each class.
-        // Doc 1
+    protected String inputString(String label, String message)
+    {
+        String s = (String)JOptionPane.showInputDialog
+                (
+                    frame,
+                    message,
+                    label,
+                    JOptionPane.PLAIN_MESSAGE
+                );
+        return s;
+    }
+    
+    
+    protected int inputInt(String label, String message)
+    {
+        String s = (String)JOptionPane.showInputDialog
+                (
+                    frame,
+//                    "\t Release date (YYYY) :",
+//                    "Choosing a Date",
+                    message,
+                    label,
+                    JOptionPane.PLAIN_MESSAGE
+                );
+        return Integer.parseInt(s);
+    }
+    
+    public Mediatheque(JFrame jframe,JTextArea console)
+    {
+        documentList = new ArrayList(4);
+        mConsole = console;
+        frame = jframe;
         Film f1 = new Film("James Cameron","Avatar","FOX",2010,Categorie.SF,160);
         documentList.add(f1);
         // Doc 2
@@ -105,169 +125,44 @@ public class Mediatheque {
     {
         for (int i=0; i < documentList.size(); i++)
         {
-            documentList.get(i).displayDocument();
+            documentList.get(i).displayDocument(mConsole);
         }
-    }
-    
-    public void addVideoGame()
-    {
-        Scanner sc2 = new Scanner(System.in);
-        String newAuthor;
-        String newTitle;
-        String newEditor;
-        int newRdate;
-        Categorie newCateg;
-        int newPEGI;
-        String newSupport;
-        
-        System.out.println("############  ADDING A VIDEO GAME ############");
-        System.out.println("## Author : ");
-        newAuthor = sc2.nextLine();
-        System.out.println("## Title : ");
-        newTitle = sc2.nextLine();
-        System.out.println("## Editor : ");
-        newEditor = sc2.nextLine();
-        System.out.println("## Release date : ");
-        newRdate = sc2.nextInt();
-        System.out.println("## Category : ");
-        newCateg = chooseCateg();
-        System.out.println("## PEGI Recommandation : ");
-        newPEGI = sc2.nextInt();
-        System.out.println("## Support : ");
-        newSupport = sc2.nextLine();
-        
-        JeuxVideo jv = new JeuxVideo(newAuthor,newTitle,newEditor,newRdate,newCateg,newPEGI,newSupport);
-        documentList.add(jv);
-    }
-    
-    public void addMusic()
-    {
-        Scanner sc2 = new Scanner(System.in);
-        String newAuthor;
-        String newTitle;
-        String newEditor;
-        int newRdate;
-        Categorie newCateg;
-        int newTsize;
-        
-        System.out.println("############  ADDING A MUSIC ############");
-        System.out.println("## Author : ");
-        newAuthor = sc2.nextLine();
-        System.out.println("## Title : ");
-        newTitle = sc2.nextLine();
-        System.out.println("## Editor : ");
-        newEditor = sc2.nextLine();
-        System.out.println("## Release date : ");
-        newRdate = sc2.nextInt();
-        System.out.println("## Category : ");
-        newCateg = chooseCateg();
-        System.out.println("## Music track size (minutes) : ");
-        newTsize = sc2.nextInt();
-
-        
-        Musique msq = new Musique(newAuthor,newTitle,newEditor,newRdate,newCateg,newTsize);
-        documentList.add(msq);
-    }
-    
-    public void addMovie()
-    {
-        Scanner sc2 = new Scanner(System.in);
-        String newAuthor;
-        String newTitle;
-        String newEditor;
-        int newRdate;
-        Categorie newCateg;
-        int newMsize;
-        
-        System.out.println("############  ADDING A MOVIE ############");
-        System.out.println("## Author : ");
-        newAuthor = sc2.nextLine();
-        System.out.println("## Title : ");
-        newTitle = sc2.nextLine();
-        System.out.println("## Editor : ");
-        newEditor = sc2.nextLine();
-        System.out.println("## Release date : ");
-        newRdate = sc2.nextInt();
-        System.out.println("## Category : ");
-        newCateg = chooseCateg();
-        System.out.println("## Movie size (minutes) : ");
-        newMsize = sc2.nextInt();
-
-        
-        Film mv = new Film(newAuthor,newTitle,newEditor,newRdate,newCateg,newMsize);
-        documentList.add(mv);
-    }
-    
-    public void addBook()
-    {
-        Scanner sc2 = new Scanner(System.in);
-        String newAuthor;
-        String newTitle;
-        String newEditor;
-        int newRdate;
-        Categorie newCateg;
-        String newSupport;
-        
-        System.out.println("############  ADDING A BOOK ############");
-        System.out.println("## Author : ");
-        newAuthor = sc2.nextLine();
-        System.out.println("## Title : ");
-        newTitle = sc2.nextLine();
-        System.out.println("## Editor : ");
-        newEditor = sc2.nextLine();
-        System.out.println("## Release date : ");
-        newRdate = sc2.nextInt();
-        System.out.println("## Category : ");
-        newCateg = chooseCateg();
-        System.out.println("## Support : ");
-        newSupport = sc2.nextLine();
-
-        Livre bk = new Livre(newAuthor,newTitle,newEditor,newRdate,newCateg,newSupport);
-        documentList.add(bk);
     }
     
     public void addDocument()
     {
-        Scanner sc = new Scanner(System.in);
-        int i = 0;
-        do 
+        DocumentType newType = inputDocumentType();
+        Categorie newCateg = inputCateg();
+        String newTitle = inputString("Choosing Title","\t Document's title :");
+        String newAuthor = inputString("Choosing Author","\t Document's author :");
+        String newEditor = inputString("Choosing Editor","\t Document's editor :");
+        int newRdate = inputInt("Choosing Date","\t Document's release date :");
+        
+        switch (newType)
         {
-            i = 0;
-            System.out.println("############ ADDING A DOCUMENT ############");
-            System.out.println("## What sort of document do you want to add ? ");
-            System.out.println("\t 1) A movie");
-            System.out.println("\t 2) A video game");
-            System.out.println("\t 3) A book");
-            System.out.println("\t 4) A song");
-            System.out.println("\t 9) Go back");
-              
-            i = sc.nextInt();
-            System.out.println(i);
-            
-            if (( i != 1 )&&( i != 2)&&( i != 3)&&( i != 4)&&( i != 9))
-              System.out.println("\t !! Please type valid characters (1/2/3/4/9)");
-        }while (( i != 1 )&&( i != 2)&&( i != 3)&&( i != 4)&&( i != 9));
-            
-        switch(i)
-        {
-            case 1:
-                addMovie();
+            case Movie:
+                int newMsize = inputInt("Choosing Movie Size","\t Movie's size (min [integer])");
+                Film mv = new Film(newAuthor,newTitle,newEditor,newRdate,newCateg,newMsize);
+                documentList.add(mv);
                 break;
-            case 2:
-                addVideoGame();
+            case VideoGame:
+                int newPEGI = inputInt("Choosing PEGI","\t Video Game's Pegi recommandation");
+                String newSupport = inputString("Choosing Support","\t Video Game's support");       
+                JeuxVideo jv = new JeuxVideo(newAuthor,newTitle,newEditor,newRdate,newCateg,newPEGI,newSupport);
+                documentList.add(jv);
                 break;
-            case 3:
-                addBook();
+            case Book:
+                newSupport = inputString("Choosing Support","\t Book's support");
+                Livre bk = new Livre(newAuthor,newTitle,newEditor,newRdate,newCateg,newSupport);
+                documentList.add(bk);
                 break;
-            case 4:
-                addMusic();
+            case Music:
+                int newTsize = inputInt("Choosing Track Size","\t Music track size (min [integer]) : ");    
+                Musique mc = new Musique(newAuthor,newTitle,newEditor,newRdate,newCateg,newTsize);
+                documentList.add(mc);
                 break;
-            case 9:
-                System.out.println("\t End of the adding ");
-                break;
-            default:
-                System.out.println("\t !! Error !!");
-        }  
+        }
+        return;
     }
     
     public void triParAuteur()
@@ -292,7 +187,16 @@ public class Mediatheque {
                 documentList.set(min, buffer);
             }
         }
-        displayDocument();
+    }
+    
+    public ArrayList<Document> getDocumentList()
+    {
+        return (documentList);
+    }
+    
+    public ArrayList<Document> getSearchList()
+    {
+        return (searchList);
     }
     
     public void triParTitre()
@@ -317,18 +221,13 @@ public class Mediatheque {
                 documentList.set(min, buffer);
             }
         }
-        displayDocument();
+        //displayDocument();
     }
     
-    public void searchByAuthor()
+    public boolean searchByAuthor(String author)
     {
-        Scanner sc = new Scanner(System.in);
         int i = 0;
         int found = -1;
-        String author;
-        System.out.println("\t Type the author you want to search : ");
-        author = sc.nextLine();
-        
         while ((i < documentList.size()) && (found==-1))
         {
              if (documentList.get(i).getNomAuteur().compareTo(author) == 0)
@@ -340,23 +239,31 @@ public class Mediatheque {
         //  If the author has been founded, his mades are displayed.
         if (found == 1)
         {
-            System.out.println("\t Search completed: The author (" 
-                            + author
-                            + ") has been found in the GDB :"     
-                            + "\n \t Here are his mades : ");
+            //Copy of the document list
+            ArrayList<Document> myDocumentList = new ArrayList();
             
             for(int j = 0; j < documentList.size(); j++)
             {
                 if (documentList.get(j).getNomAuteur().compareTo(author) == 0)
                 {
-                    System.out.println(documentList.get(j).getTitreDoc() );
+                    myDocumentList.add(documentList.get(j));
                 }
             }
+            // Modification of the search list :
+            searchList = myDocumentList;
+            JOptionPane.showMessageDialog(frame,
+                            "\n\t Search completed: \nThe author ( " 
+                            + author
+                            + " ) has been found in the GDB :");
+            return (true);
         }
         else
         {
-            System.out.println("\t The search failed: This author("+ author +") is not registered in the GDB");
+            JOptionPane.showMessageDialog(frame,
+                    "\n\t The search failed: \nThis author( "+ author +" ) is not registered in the GDB");
+            return (false);
         }
-    }
+    } 
+    
     
 }

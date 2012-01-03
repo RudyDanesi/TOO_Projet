@@ -4,6 +4,8 @@
  */
 package classes;
 
+import javax.swing.JTextArea;
+
 /**
  *
  * @author Rudash
@@ -22,20 +24,20 @@ public class Film extends Document{
     }
 
     @Override
-    public void displayDocument() {
-        System.out.println("############  DOCUMENT (MOVIE) ############");
-        System.out.println("## Author : ");
-        System.out.println("\t"+nomAuteur);
-        System.out.println("## Title : ");
-        System.out.println("\t"+titreDoc);
-        System.out.println("## Editor : ");
-        System.out.println("\t"+editeur);
-        System.out.println("## Release date : ");
-        System.out.println("\t"+anneePublication);
-        System.out.println("## Category : ");
-        System.out.println("\t"+Categ);
-        System.out.println("## Movie size (minutes) : ");
-        System.out.println("\t"+taille);
+    public void displayDocument(JTextArea console) {
+        console.append("############  DOCUMENT (MOVIE) ############");
+        console.append("\n## Author : ");
+        console.append("\n\t"+nomAuteur);
+        console.append("\n## Title : ");
+        console.append("\n\t"+titreDoc);
+        console.append("\n## Editor : ");
+        console.append("\n\t"+editeur);
+        console.append("\n## Release date : ");
+        console.append("\n\t"+anneePublication);
+        console.append("\n## Category : ");
+        console.append("\n\t"+Categ);
+        console.append("\n## Movie size (minutes) : ");
+        console.append("\n\t"+taille);
     }
 
     public int getTaille() {

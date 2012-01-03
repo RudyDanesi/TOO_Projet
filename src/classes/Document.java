@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package classes;
-
+import javax.swing.JTextArea; 
 /**
  *
  * @author Rudash
@@ -17,7 +17,6 @@ public class Document {
 
     public Document()
     {
-        System.out.println("Document created (Wo parameters)");
         nomAuteur = "indefini";
         titreDoc = "indefini";
         editeur = "indefini";
@@ -26,7 +25,6 @@ public class Document {
     
     public Document(String auteur, String titre, String edit, int anPub, Categorie cat)
     {
-       System.out.println("Document created (W parameters)");
        nomAuteur = auteur;
        titreDoc = titre;
        anneePublication = anPub;
@@ -34,19 +32,19 @@ public class Document {
        Categ = cat;
     }
 
-    public void displayDocument()
+    public void displayDocument(JTextArea console)
     {
-        System.out.println("############  DOCUMENT ############");
-        System.out.println("## Author : ");
-        System.out.println("\t"+nomAuteur);
-        System.out.println("## Title : ");
-        System.out.println("\t"+titreDoc);
-        System.out.println("## Editor : ");
-        System.out.println("\t"+editeur);
-        System.out.println("## Release date : ");
-        System.out.println("\t"+anneePublication);
-        System.out.println("## Category : ");
-        System.out.println("\t"+Categ);
+        console.append("############  DOCUMENT ############");
+        console.append("\n## Author : ");
+        console.append("\n\t"+nomAuteur);
+        console.append("\n## Title : ");
+        console.append("\n\t"+titreDoc);
+        console.append("\n## Editor : ");
+        console.append("\n\t"+editeur);
+        console.append("\n## Release date : ");
+        console.append("\n\t"+anneePublication);
+        console.append("\n## Category : ");
+        console.append("\n\t"+Categ);
     }
 
     public Categorie getCateg() {

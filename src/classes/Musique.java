@@ -4,6 +4,8 @@
  */
 package classes;
 
+import javax.swing.JTextArea;
+
 /**
  *
  * @author Rudash
@@ -34,20 +36,20 @@ public class Musique extends Document
     }
 
     @Override
-    public void displayDocument() {
-        System.out.println("############  DOCUMENT (MUSIC) ############");
-        System.out.println("## Author : ");
-        System.out.println("\t"+nomAuteur);
-        System.out.println("## Title : ");
-        System.out.println("\t"+titreDoc);
-        System.out.println("## Editor : ");
-        System.out.println("\t"+editeur);
-        System.out.println("## Release date : ");
-        System.out.println("\t"+anneePublication);
-        System.out.println("## Category : ");
-        System.out.println("\t"+Categ);
-        System.out.println("## Music track size (minutes) : ");
-        System.out.println("\t"+DureePiste);
+    public void displayDocument(JTextArea console) {
+        console.append("############  DOCUMENT (MUSIC) ############");
+        console.append("\n## Author : ");
+        console.append("\n\t"+nomAuteur);
+        console.append("\n## Title : ");
+        console.append("\n\t"+titreDoc);
+        console.append("\n## Editor : ");
+        console.append("\n\t"+editeur);
+        console.append("\n## Release date : ");
+        console.append("\n\t"+anneePublication);
+        console.append("\n## Category : ");
+        console.append("\n\t"+Categ);
+        console.append("\n## Music track size (minutes) : ");
+        console.append("\n\t"+DureePiste);
     }
 
     

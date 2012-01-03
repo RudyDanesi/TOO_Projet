@@ -4,6 +4,8 @@
  */
 package classes;
 
+import javax.swing.JTextArea;
+
 /**
  *
  * @author Rudash
@@ -41,25 +43,25 @@ public class JeuxVideo extends Document {
     }
 
     @Override
-    public void displayDocument() {
-        System.out.println("############  DOCUMENT (VIDEO GAME) ############");
-        System.out.println("## Author : ");
-        System.out.println("\t"+nomAuteur);
-        System.out.println("## Title : ");
-        System.out.println("\t"+titreDoc);
-        System.out.println("## Editor : ");
-        System.out.println("\t"+editeur);
-        System.out.println("## Release date : ");
-        System.out.println("\t"+anneePublication);
-        System.out.println("## Category : ");
-        System.out.println("\t"+Categ);
-        System.out.println("## PEGI Recommandation : ");
+    public void displayDocument(JTextArea console) {
+        console.append("############  DOCUMENT (VIDEO GAME) ############");
+        console.append("\n## Author : ");
+        console.append("\n\t"+nomAuteur);
+        console.append("\n## Title : ");
+        console.append("\n\t"+titreDoc);
+        console.append("\n## Editor : ");
+        console.append("\n\t"+editeur);
+        console.append("\n## Release date : ");
+        console.append("\n\t"+anneePublication);
+        console.append("\n## Category : ");
+        console.append("\n\t"+Categ);
+        console.append("\n## PEGI Recommandation : ");
         if (PEGI == 0)
-            System.out.println("\t"+"Tout Public");
+            console.append("\n\t"+"Tout Public");
         else
-            System.out.println("\t"+" -" + PEGI);
-        System.out.println("## Support : ");
-        System.out.println("\t"+Support);
+            console.append("\n\t"+" -" + PEGI);
+        console.append("\n## Support : ");
+        console.append("\n\t"+Support);
     }
     
     
