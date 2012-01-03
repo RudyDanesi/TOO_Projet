@@ -3,8 +3,7 @@ Authors:
     Alias Rémi
 
 Le Programme:
-    Pour l'instant les différentes possiblités du programme sont dans le main 
-    et doivent être décommentées pour les tester.
+    Il suffit de lancer le programme (classe Main) pour lancer l'interface.
 
 Compiler le Projet:
     
